@@ -2,7 +2,7 @@
 
 **AI-powered web scraper.** Paste a URL, pick a schema (or write your own in YAML), and the pipeline fetches the page, cleans the HTML, and hands it to Gemini 2.5 Flash with a typed extraction tool. Get structured JSON and Excel back.
 
-Live demo → [url-extract.vercel.app](https://url-extract.vercel.app)
+Live demo → [url-extract-chi.vercel.app](https://url-extract-chi.vercel.app)
 
 Built as a companion to [pdf-extract-pipeline](https://github.com/joshobuilds/pdf-extract-pipeline). Same mental model — drop in unstructured data, declare what you want, get a spreadsheet back.
 
