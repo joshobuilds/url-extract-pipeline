@@ -82,7 +82,7 @@ Open http://localhost:3000.
 2. Add an environment variable: `GEMINI_API_KEY` = your Google AI Studio key.
 3. (Optional) `PRIMARY_MODEL=gemini-2.5-flash` for production accuracy; defaults to `gemini-2.5-flash-lite` for free-tier demos.
 
-Vercel auto-detects Next.js. Every push to `main` ships.
+Vercel auto-detects Next.js. Every push to the default branch ships.
 
 ---
 
