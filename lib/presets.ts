@@ -128,6 +128,57 @@ fields:
     type: string
 `,
   },
+  mobile_home_parks: {
+    label: 'Mobile home parks directory',
+    description: 'Park-level data: name, address, counts, year built, age restrictions.',
+    default_url: '',
+    mode: 'list',
+    yaml: `name: "Mobile home parks"
+description: "Extract park-level data from a mobile home park directory or listing site (e.g. mhvillage.com, mobilehomeparkstore.com)."
+mode: list
+instructions: |
+  - One row per distinct park. Do not emit one row per home-for-sale listing.
+  - state, county, city should be standardized (e.g. "MI" not "Michigan"; "Clare" not "Clare County").
+  - zip is the 5-digit US ZIP code as a string (preserve leading zeros).
+  - homes_for_sale and homes_for_rent are integer counts shown on the park page. If not shown, leave blank — do not estimate.
+  - number_of_sites is the total lot count at the park.
+  - vacant_sites is only included if the park explicitly publishes it.
+  - age_restrictions standardizes to one of: "Age Restricted", "All Ages", "55+".
+  - source_url must be the exact URL of the park detail page.
+
+fields:
+  - name: park_name
+    type: string
+    required: true
+  - name: state
+    type: string
+    description: "2-letter US state code."
+  - name: county
+    type: string
+  - name: city
+    type: string
+  - name: street_address
+    type: string
+  - name: zip
+    type: string
+    description: "5-digit US ZIP code as a string."
+  - name: homes_for_sale
+    type: integer
+  - name: homes_for_rent
+    type: integer
+  - name: year_built
+    type: integer
+  - name: number_of_sites
+    type: integer
+  - name: vacant_sites
+    type: integer
+  - name: age_restrictions
+    type: string
+    enum: ["Age Restricted", "All Ages", "55+"]
+  - name: manager_name
+    type: string
+`,
+  },
   article: {
     label: 'Article / blog post (single page)',
     description: 'Summarize one article page — title, author, date, summary, topics.',
