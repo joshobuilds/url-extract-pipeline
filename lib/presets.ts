@@ -179,6 +179,54 @@ fields:
     type: string
 `,
   },
+  restaurant_menu: {
+    label: 'Restaurant menu (single page)',
+    description: 'Restaurant menu with categories, items, prices, modifiers, and business metadata.',
+    default_url: '',
+    mode: 'single',
+    yaml: `name: "Restaurant menu"
+description: "Extract a restaurant's full menu plus business metadata from a single page. Designed for marketplace merchant onboarding."
+mode: single
+instructions: |
+  - Capture the full menu, not just featured items.
+  - Group items under their category (Starters, Mains, Drinks, etc). If no categories are visible, use "Menu".
+  - price is a number in the venue's currency. Strip currency symbols and thousand separators.
+  - currency is a 3-letter ISO 4217 code inferred from the symbol, country, or context (e.g. $ + AU address = AUD; $ alone in US context = USD; £ = GBP).
+  - modifiers captures size/add-on options shown next to an item (e.g. "Small/Medium/Large", "Add bacon +$2").
+  - description is the short blurb under the item name, if shown.
+  - dietary_tags captures badges like "V" (vegetarian), "VG" (vegan), "GF" (gluten-free), "DF" (dairy-free), "N" (contains nuts). Normalize to the full word.
+  - business_name, address, phone, email, opening_hours come from footer / contact / about sections.
+  - Do not invent prices or items that aren't on the page.
+
+fields:
+  - name: business_name
+    type: string
+    required: true
+  - name: cuisine_type
+    type: string
+    description: "E.g. Italian, Japanese, Modern Australian, Cafe."
+  - name: address
+    type: string
+  - name: phone
+    type: string
+  - name: email
+    type: string
+  - name: opening_hours
+    type: string
+    description: "Free-text as displayed, e.g. 'Mon-Fri 11am-9pm, Sat-Sun 10am-10pm'."
+  - name: currency
+    type: string
+    description: "ISO 4217 code."
+  - name: categories
+    type: array
+    item_type: string
+    description: "Ordered list of menu category names in the order shown on the page."
+  - name: items
+    type: array
+    item_type: string
+    description: "JSON strings, one per menu item. Each string is a JSON object with keys: name, category, price, description, modifiers (array), dietary_tags (array)."
+`,
+  },
   article: {
     label: 'Article / blog post (single page)',
     description: 'Summarize one article page — title, author, date, summary, topics.',
